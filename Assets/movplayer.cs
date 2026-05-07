@@ -36,9 +36,9 @@ public class movplayer : MonoBehaviour
             animacaos.SetBool("correh", true);
 
             if (x < 0)
-                transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
             else if (x > 0)
-                transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(-0.8f, 0.8f, 0.8f);
         }
 
      
