@@ -8,7 +8,7 @@ public class cambioescena : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Verifica que quien tocó sea el Player
+      
         if (collision.gameObject.name == "Player")
         {
             SceneManager.LoadScene(numeroEscena);

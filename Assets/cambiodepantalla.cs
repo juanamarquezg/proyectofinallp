@@ -1,0 +1,19 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class cambiodepantalla : MonoBehaviour
+{
+
+    public int numeroEscena;
+    public void cambiarEscena()
+    {
+
+        SceneManager.LoadScene(numeroEscena);
+
+
+
+    }
+
+
+
+}
