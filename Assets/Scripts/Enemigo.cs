@@ -1,31 +1,32 @@
 using System.Collections;
 using UnityEngine;
 
-public class PalmaEmpaladora : MonoBehaviour
+public class Enemigo : MonoBehaviour
 {
-    private const int GOLPES_PARA_MORIR = 7;
+    private const int GOLPES_PARA_MORIR = 12;
 
-    public float velocidad = 3f;
-    public float tiempoEntreAtaques = 0.6f;
+    public float velocidad = 1.5f;
+    public float tiempoEntreAtaques = 1.2f;
 
-    private int _golpesRecibidos;
-    private bool _estaAtacando;
-    private Transform _jugador;
+    private int golpesRecibidos;
+    private bool estaAtacando;
+    private Transform jugador;
+    private Coroutine corrutinaAtaque;
 
     private void Start()
     {
-        _golpesRecibidos = 0;
-        _estaAtacando = false;
-        _jugador = GameObject.FindWithTag("Player").transform;
+        golpesRecibidos = 0;
+        estaAtacando = false;
+        jugador = GameObject.FindWithTag("Player").transform;
     }
 
     private void Update()
     {
-        if (_jugador == null) return;
+        if (jugador == null) return;
 
         transform.position = Vector2.MoveTowards(
             transform.position,
-            _jugador.position,
+            jugador.position,
             velocidad * Time.deltaTime
         );
     }
@@ -33,21 +34,27 @@ public class PalmaEmpaladora : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
-        if (_estaAtacando) return;
+        if (estaAtacando) return;
 
-        StartCoroutine(AtacarJugador(other));
+        corrutinaAtaque = StartCoroutine(AtacarJugador(other));
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
-        StopCoroutine(AtacarJugador(other));
-        _estaAtacando = false;
+
+        if (corrutinaAtaque != null)
+        {
+            StopCoroutine(corrutinaAtaque);
+            corrutinaAtaque = null;
+        }
+
+        estaAtacando = false;
     }
 
     private IEnumerator AtacarJugador(Collider2D other)
     {
-        _estaAtacando = true;
+        estaAtacando = true;
 
         while (other != null && other.CompareTag("Player"))
         {
@@ -58,14 +65,14 @@ public class PalmaEmpaladora : MonoBehaviour
             yield return new WaitForSeconds(tiempoEntreAtaques);
         }
 
-        _estaAtacando = false;
+        estaAtacando = false;
     }
 
     public void RecibirGolpe()
     {
-        _golpesRecibidos++;
+        golpesRecibidos++;
 
-        if (_golpesRecibidos >= GOLPES_PARA_MORIR)
+        if (golpesRecibidos >= GOLPES_PARA_MORIR)
             Destroy(gameObject);
     }
 }
