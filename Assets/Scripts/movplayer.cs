@@ -72,7 +72,7 @@ public class movplayer : MonoBehaviour
         }
     }
 
-    private void OnTriggerstay2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Enemigo") && golpeando)
         {
