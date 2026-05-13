@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Enemigo : MonoBehaviour
 {
-    private const int GOLPES_PARA_MORIR = 12;
+    private const int GOLPES_PARA_MORIR = 4;
 
     public float velocidad = 1.5f;
     public float tiempoEntreAtaques = 1.2f;

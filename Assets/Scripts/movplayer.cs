@@ -1,31 +1,22 @@
 using UnityEngine;
 
-
 public class movplayer : MonoBehaviour
 {
     public float veloMove;
     public float x;
-    public float fuerzaDeSalto;
     public float y;
 
     public Animator animacaos;
 
+   
+    public GameObject hitbox;
+    public float duracionHitbox = 0.2f;
+
     private bool golpeando = false;
-    private float tiempoGolpe = 0f;
-    public float duracionGolpe = 0.25f; 
-
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
 
     void Update()
     {
-     
+        
         x = Input.GetAxisRaw("Horizontal");
         transform.Translate(Vector3.right * x * veloMove * Time.deltaTime);
 
@@ -35,48 +26,39 @@ public class movplayer : MonoBehaviour
         {
             animacaos.SetBool("correh", true);
 
-            if (x < 0)
+           
+            if (x < 0) 
                 transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-            else if (x > 0)
+            else if (x > 0) 
                 transform.localScale = new Vector3(-0.8f, 0.8f, 0.8f);
         }
 
-     
+        
         y = Input.GetAxisRaw("Vertical");
         transform.Translate(Vector3.up * y * veloMove * Time.deltaTime);
 
-        animacaos.SetBool("correvup", false);
-        animacaos.SetBool("correvdo", false);
-
-        if (y > 0)
-            animacaos.SetBool("correvup", true);
-        else if (y < 0)
-            animacaos.SetBool("correvdo", true);
+        animacaos.SetBool("correvup", y > 0);
+        animacaos.SetBool("correvdo", y < 0);
 
         
         if (Input.GetKeyDown(KeyCode.F) && !golpeando)
         {
             animacaos.SetTrigger("golpe");
             golpeando = true;
-            tiempoGolpe = duracionGolpe;
-        }
 
-        if (golpeando)
-        {
-            tiempoGolpe -= Time.deltaTime;
-
-            if (tiempoGolpe <= 0)
-            {
-                golpeando = false;
-            }
+            ActivarHitbox();
+            Invoke(nameof(DesactivarHitbox), duracionHitbox);
         }
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    void ActivarHitbox()
     {
-        if (other.CompareTag("Enemigo") && golpeando)
-        {
-            Destroy(other.gameObject);
-        }
+        hitbox.SetActive(true);
+    }
+
+    void DesactivarHitbox()
+    {
+        hitbox.SetActive(false);
+        golpeando = false;
     }
 }

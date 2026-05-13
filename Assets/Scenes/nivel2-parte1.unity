@@ -344,6 +344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 245611766}
   - component: {fileID: 245611767}
+  - component: {fileID: 245611768}
   m_Layer: 2
   m_Name: hitbox
   m_TagString: Untagged
@@ -412,6 +413,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &245611768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245611765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 651b7ff6a86bf2b4bb6ee359dbd1f1c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &593783766
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,10 +475,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   veloMove: 10
   x: 0
-  fuerzaDeSalto: 0
   y: 0
   animacaos: {fileID: 593783769}
-  duracionGolpe: 0.25
+  hitbox: {fileID: 245611765}
+  duracionHitbox: 0.2
 --- !u!95 &593783769
 Animator:
   serializedVersion: 7
@@ -957,7 +970,7 @@ GameObject:
   - component: {fileID: 1603423899}
   m_Layer: 2
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
