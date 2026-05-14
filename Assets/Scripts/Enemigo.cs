@@ -8,6 +8,12 @@ public class Enemigo : MonoBehaviour
     public float velocidad = 1.5f;
     public float tiempoEntreAtaques = 1.2f;
 
+  
+    public float distanciaAtaque = 1.5f;
+
+    
+    public Animator animator;
+
     private int golpesRecibidos;
     private bool estaAtacando;
     private Transform jugador;
@@ -17,6 +23,7 @@ public class Enemigo : MonoBehaviour
     {
         golpesRecibidos = 0;
         estaAtacando = false;
+
         jugador = GameObject.FindWithTag("Player").transform;
     }
 
@@ -24,11 +31,42 @@ public class Enemigo : MonoBehaviour
     {
         if (jugador == null) return;
 
-        transform.position = Vector2.MoveTowards(
-            transform.position,
-            jugador.position,
-            velocidad * Time.deltaTime
-        );
+       
+        float distancia = Vector2.Distance(transform.position, jugador.position);
+
+       
+        if (distancia > distanciaAtaque)
+        {
+            transform.position = Vector2.MoveTowards(
+                transform.position,
+                jugador.position,
+                velocidad * Time.deltaTime
+            );
+
+           
+            animator.SetBool("caminar", true);
+
+         
+            animator.SetBool("golpe", false);
+        }
+        else
+        {
+           
+            animator.SetBool("caminar", false);
+
+          
+            animator.SetBool("golpe", true);
+        }
+
+        
+        if (jugador.position.x < transform.position.x)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -50,6 +88,9 @@ public class Enemigo : MonoBehaviour
         }
 
         estaAtacando = false;
+
+
+        animator.SetBool("golpe", false);
     }
 
     private IEnumerator AtacarJugador(Collider2D other)
@@ -59,6 +100,7 @@ public class Enemigo : MonoBehaviour
         while (other != null && other.CompareTag("Player"))
         {
             vida v = other.GetComponent<vida>();
+
             if (v != null)
                 v.TakeDamage();
 
