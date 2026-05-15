@@ -111,7 +111,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: caminarenm
-  m_Speed: 6
+  m_Speed: 8
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -3361936427922215189}
