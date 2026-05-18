@@ -656,8 +656,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 257e8bb0c532f444b860d1e5521dfcd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::vida
-  NombreScenaUno: Nivel1
-  Duracion_invulnerabilidad: 0.8
+  numeroEscena: 6
+  Duracion_invulnerabilidad: 0.5
 --- !u!114 &593783768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1708,7 +1708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ContadorRegresivo
   textoTiempo: {fileID: 817465704}
   tiempoInicial: 60
-  numeroEscena: 1
+  numeroEscena: 6
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

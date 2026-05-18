@@ -8,7 +8,7 @@ public class vida : MonoBehaviour
     private const int Cuartos_Por_corazon = 4;
     private const int MAX_HP = Corazones_maximos * Cuartos_Por_corazon;
 
-    public string NombreScenaUno = "Nivel1";
+    public int numeroEscena;
     public float Duracion_invulnerabilidad = 0.8f;
 
     private int _HP_actuales;
@@ -69,7 +69,7 @@ public class vida : MonoBehaviour
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(1.2f);
         Time.timeScale = 1f;
-        SceneManager.LoadScene(NombreScenaUno);
+        SceneManager.LoadScene(numeroEscena);
     }
 
     private IEnumerator InvulnerabilityRoutine()
